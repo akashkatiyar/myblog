@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-    <changeSet author="nexthoughts (generated)" id="1408968348363-1">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-1">
         <createTable tableName="blog">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="blogPK"/>
@@ -30,7 +30,26 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-2">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-2">
+        <createTable tableName="comment">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="commentPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blog_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nexthoughts (generated)" id="1408973379570-3">
         <createTable tableName="role">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="rolePK"/>
@@ -43,7 +62,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-3">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-4">
         <createTable tableName="user">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="userPK"/>
@@ -77,7 +96,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-4">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-5">
         <createTable tableName="user_role">
             <column name="role_id" type="bigint">
                 <constraints nullable="false"/>
@@ -87,40 +106,60 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-5">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-6">
         <addPrimaryKey columnNames="role_id, user_id" constraintName="user_rolePK" tableName="user_role"/>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-9">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-12">
         <createIndex indexName="FK2E2FA267DE3BD1" tableName="blog">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-10">
-        <createIndex indexName="authority_uniq_1408968348283" tableName="role" unique="true">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-13">
+        <createIndex indexName="FK38A5EE5F67DE3BD1" tableName="comment">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="nexthoughts (generated)" id="1408973379570-14">
+        <createIndex indexName="FK38A5EE5F6F551871" tableName="comment">
+            <column name="blog_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="nexthoughts (generated)" id="1408973379570-15">
+        <createIndex indexName="authority_uniq_1408973379030" tableName="role" unique="true">
             <column name="authority"/>
         </createIndex>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-11">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-16">
         <createIndex indexName="FK143BF46A67DE3BD1" tableName="user_role">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-12">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-17">
         <createIndex indexName="FK143BF46AC2B377F1" tableName="user_role">
             <column name="role_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-6">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-7">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="blog" constraintName="FK2E2FA267DE3BD1"
                                  deferrable="false" initiallyDeferred="false" referencedColumnNames="id"
                                  referencedTableName="user" referencesUniqueColumn="false"/>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-7">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-8">
+        <addForeignKeyConstraint baseColumnNames="blog_id" baseTableName="comment" constraintName="FK38A5EE5F6F551871"
+                                 deferrable="false" initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="blog" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="nexthoughts (generated)" id="1408973379570-9">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="comment" constraintName="FK38A5EE5F67DE3BD1"
+                                 deferrable="false" initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="nexthoughts (generated)" id="1408973379570-10">
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="FK143BF46AC2B377F1"
                                  deferrable="false" initiallyDeferred="false" referencedColumnNames="id"
                                  referencedTableName="role" referencesUniqueColumn="false"/>
     </changeSet>
-    <changeSet author="nexthoughts (generated)" id="1408968348363-8">
+    <changeSet author="nexthoughts (generated)" id="1408973379570-11">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="FK143BF46A67DE3BD1"
                                  deferrable="false" initiallyDeferred="false" referencedColumnNames="id"
                                  referencedTableName="user" referencesUniqueColumn="false"/>
