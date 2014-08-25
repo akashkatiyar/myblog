@@ -17,6 +17,7 @@ class BlogCO {
     Date createdAt
     Date updatedAt
     String username
+    String comment
 
     static constraints = {
         title blank: false, nullable: false, unique: true
@@ -38,6 +39,7 @@ class BlogCO {
         this.views=params.views as Long
         this.createdAt = params.createdAt
         this.updatedAt = params.updatedAt
+        this.comment=params.comment
     }
 
 }

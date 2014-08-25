@@ -4,7 +4,8 @@ class Comment {
 
     User user
     Blog blog
-    String Comment
+    String comment
+    Date createdAt
 
     static constraints = {
     }

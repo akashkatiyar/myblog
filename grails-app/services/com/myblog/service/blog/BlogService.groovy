@@ -3,6 +3,7 @@ package com.myblog.service.blog
 import com.myblog.Converter.COToDomain
 import com.myblog.co.BlogCO
 import com.myblog.domain.Blog
+import com.myblog.domain.Comment
 import com.myblog.domain.User
 import org.springframework.transaction.annotation.Transactional
 
@@ -29,5 +30,23 @@ class BlogService {
         blog.save()
     }
 
+    def createComment(Blog blog, User user, String sComment) {
+        Comment comment = new Comment()
+        comment.user = user
+        comment.blog = blog
+        comment.comment = sComment
+        Date date = new Date()
+        comment.createdAt = date
+        comment.save()
+
+    }
+
+    def deleteBlog(Long blogId) {
+        Blog blog = Blog.get(blogId)
+        List<Comment> commentList = Comment.findAllByBlog(blog)
+        for (comment in commentList)
+            comment.delete()
+        blog.delete()
+    }
 
 }

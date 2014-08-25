@@ -5,6 +5,7 @@ import org.codehaus.groovy.grails.validation.Validateable
 @Validateable
 class UserDetailCO {
 
+    Long userId
     String username
     String password
     String conPassword
@@ -33,6 +34,7 @@ class UserDetailCO {
     }
 
     UserDetailCO(Map params) {
+        this.userId = params.userId
         this.username = params.username
         this.password = params.password
         this.conPassword = params.conPassword

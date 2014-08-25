@@ -5,13 +5,12 @@
 
 <body>
 <div class="container">
-    <div class="page-header"><h1>My Blog</h1></div>
+    <div class="page-header"><h1>${blogCO.title}</h1></div>
 
 
     <div class="jumbotron">
         <div class="row">
             <div class="col-lg-6">
-                <h1>${blogCO.title}</h1>
 
                 <p>${blogCO.content}</p>
 
@@ -28,10 +27,33 @@
         </div>
     </div>
 
+    <g:each in="${commentList}" var="comment">
+
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Comments</h3>
+
+                    <p>By: ${comment.user.username}</p>
+
+                    <p>${comment.comment}</p>
+
+
+
+                    <small><g:formatDate date="${comment.createdAt}" type="datetime" style="MEDIUM"/></small>
+                </div>
+
+
+                %{--<p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>--}%
+            </div>
+        </div>
+
+    </g:each>
+
 
 
     <g:form action="comment" method='POST' class="form-horizontal" role="form">
-
+        <g:hiddenField name="blogId" value="${blogCO.blogId}"/>
         <div class="form-group">
 
             <label for="comment" class="col-sm-2 control-label">Comment</label>

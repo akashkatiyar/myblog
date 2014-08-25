@@ -51,10 +51,13 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><g:link uri="/">Home</g:link></li>
-                <sec:ifAnyGranted roles="ROLE_WRITER">
+                <sec:ifLoggedIn roles="ROLE_WRITER,ROLE_AUTHOR">
                     <li><g:link controller="blog" action="createBlog">Create New Blog</g:link></li>
                     <li><g:link controller="blog" action="myBlog">My Blog</g:link></li>
-                    <li><a href="#contact">My Profile</a></li>
+                %{--<li><a href="#contact">My Profile</a></li>--}%
+                </sec:ifLoggedIn>
+                <sec:ifAnyGranted roles="ROLE_ADMIN">
+                    <li><g:link controller="blog" action="myBlog">Users</g:link></li>
                 </sec:ifAnyGranted>
             %{-- <li class="dropdown">
                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>

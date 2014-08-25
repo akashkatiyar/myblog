@@ -3,10 +3,11 @@ package myblog
 import com.myblog.Converter.DomainTOCO
 import com.myblog.co.BlogCO
 import com.myblog.domain.Blog
+import com.myblog.domain.Comment
 import com.myblog.domain.User
 import org.springframework.security.access.annotation.Secured
 
-@Secured(['ROLE_ADMIN', 'ROLE_WRITER'])
+@Secured(['ROLE_ADMIN', 'ROLE_WRITER', 'ROLE_AUTHOR'])
 class BlogController {
 
     def blogService
@@ -59,7 +60,8 @@ class BlogController {
             Blog blog = Blog.get(params.id)
             DomainTOCO domainTOCO = new DomainTOCO()
             BlogCO blogCO = domainTOCO.blogToBlogCOConverter(blog)
-            render view: "/blog/viewDetail", model: [blogCO: blogCO]
+            List<Comment> commentList = Comment.findAllByBlog(blog)
+            render view: "/blog/viewDetail", model: [blogCO: blogCO, commentList: commentList]
 
         }
     }
@@ -110,24 +112,24 @@ class BlogController {
 
     def comment = {
 
+        User user = springSecurityService.getCurrentUser()
         if (request.method == 'POST') {
 
-            BlogCO blogCO = new BlogCO(params)
-            if (blogCO.validate()) {
-                blogService.updateBlog(blogCO)
-            } else {
-                blogCO.errors.allErrors.each {
-
-                    println(it)
-                }
-            }
-            redirect action: "blogDetail", params: params
+            Blog blog = Blog.get(params.blogId)
+            blogService.createComment(blog, user, params.comment)
 
         }
+        params.id = params.blogId
+        redirect action: "blogDetail", params: params
+
     }
+
 
     def deleteBlog = {
 
+        if (request.method == 'GET') {
+            blogService.deleteBlog(params.blogId)
+        }
 
     }
 
