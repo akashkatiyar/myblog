@@ -12,6 +12,7 @@ class UserProfileController {
         println("*************************************")
         println("*************************************")
         println("*************************************")
+        println("*************************************")
         if (request.method == 'GET') {
             render view: "profile", model: [user: new UserDetailCO()]
         } else if (request.method == 'POST') {
