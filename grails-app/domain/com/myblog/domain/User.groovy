@@ -12,7 +12,7 @@ class User {
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
-    Role role
+    UserRole userRole
 
 
     static transients = ['conPassword']

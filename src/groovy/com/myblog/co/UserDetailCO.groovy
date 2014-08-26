@@ -13,6 +13,8 @@ class UserDetailCO {
     boolean enabled
     String authority
     String gender
+    Long totalBlog
+
 
     static constraints = {
         username blank: false, unique: true, nullable: false
@@ -41,6 +43,9 @@ class UserDetailCO {
         this.email = params.email
         this.gender = params.gender
         this.authority = params.authority
+        this.totalBlog = params.totalBlogs
+        this.enabled = params.enable
+
 
     }
 

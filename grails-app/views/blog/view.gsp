@@ -14,33 +14,44 @@
 
 <body>
 <div class="container">
-    <div class="page-header"><h1>My Blog</h1></div>
 
-    <g:each in="${blogCOList}" var="blog">
+    <g:if test="${params.controller == "admin"}">
+        <div class="page-header"><h1>User: ${username}</h1></div>
+    </g:if>
+    <g:else>
+        <div class="page-header"><h1>My Blog</h1></div>
+    </g:else>
+    <g:if test="${blogCOList != null}">
+        <g:each in="${blogCOList}" var="blog">
 
-        <div class="jumbotron">
-            <div class="row">
-                <div class="col-lg-6">
-                    <g:link controller="blog" action="blogDetail" id="${blog.blogId}"><h1>${blog.title}</h1></g:link>
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <g:link controller="blog" action="blogDetail"
+                                id="${blog.blogId}"><h1>${blog.title}</h1></g:link>
 
-                    <p>${blog.content}</p>
+                        <p>${blog.content}</p>
 
-                    <p>Created By: ${blog.username}</p>
+                        <p>Created By: ${blog.username}</p>
 
-                    <small><g:formatDate date="${blog.createdAt}" type="datetime" style="MEDIUM"/></small>
+                        <small><g:formatDate date="${blog.createdAt}" type="datetime" style="MEDIUM"/></small>
+                    </div>
+
+                    <div class="col-lg-6 col-md-offset-11">
+
+                        <g:link controller="blog" action="editBlog" id="${blog.blogId}">Edit</g:link>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <g:link controller="blog" action="deleteBlog" id="${blog.blogId}">Delete</g:link>
+                    </div>
+                    %{--<p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>--}%
                 </div>
-
-                <div class="col-lg-6 col-md-offset-11">
-
-                    <g:link controller="blog" action="editBlog" id="${blog.blogId}">Edit</g:link>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <g:link controller="blog" action="deleteBlog" id="${blog.blogId}">Delete</g:link>
-                </div>
-                %{--<p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>--}%
             </div>
-        </div>
 
-    </g:each>
+        </g:each>
+    </g:if>
+    <g:else>
+        <div class='alert alert-danger'>"No Blog For this User"</div>
+    </g:else>
 </div>
 %{--<ul class="pagination">
     <li><a href="#">&laquo;</a></li>

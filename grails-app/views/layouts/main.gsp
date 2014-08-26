@@ -57,7 +57,7 @@
                 %{--<li><a href="#contact">My Profile</a></li>--}%
                 </sec:ifLoggedIn>
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
-                    <li><g:link controller="blog" action="myBlog">Users</g:link></li>
+                    <li><g:link controller="admin" action="users">Users</g:link></li>
                 </sec:ifAnyGranted>
             %{-- <li class="dropdown">
                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>

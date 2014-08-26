@@ -70,12 +70,15 @@ environments {
 }
 
 // log4j configuration
+
 log4j = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    debug 'grails.app.jobs'
+
+// Example of changing the log pattern for the default console appender:
+//
+//appenders {
+//    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+//}
 
     error 'org.codehaus.groovy.grails.web.servlet',        // controllers
             'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -100,3 +103,16 @@ grails.plugins.springsecurity.auth.loginFormUrl = '/login/auth'
 grails.plugin.databasemigration.changelogFileName = 'changelog.xml'
 grails.plugin.databasemigration.updateOnStart = true
 grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.xml']
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "akashkattu021193@gmail.com"
+        password = "032605007724"
+        props = ["mail.smtp.auth": "true",
+                "mail.smtp.socketFactory.port": "465",
+                "mail.smtp.socketFactory.class": "javax.net.ssl.SSLSocketFactory",
+                "mail.smtp.socketFactory.fallback": "false"]
+    }
+}

@@ -4,6 +4,7 @@ import com.myblog.co.BlogCO
 import com.myblog.co.UserDetailCO
 import com.myblog.domain.Blog
 import com.myblog.domain.User
+import com.myblog.domain.UserRole
 
 /**
  * Created by nexthoughts on 21/8/14.
@@ -34,6 +35,21 @@ class DomainTOCO {
         userDetailCO.email = user.email
         userDetailCO.gender = user.gender
         userDetailCO.userId = user.id
+        userDetailCO.enabled = user.enabled
+        return userDetailCO
+
+    }
+
+    public UserDetailCO UserRoleToUserDetailCOConverter(UserRole userRole) {
+
+        UserDetailCO userDetailCO = new UserDetailCO()
+        userDetailCO.username = userRole.user.username
+        userDetailCO.authority = userRole.role.authority
+        userDetailCO.email = userRole.user.email
+        userDetailCO.gender = userRole.user.gender
+        userDetailCO.userId = userRole.user.id
+        userDetailCO.enabled = userRole.user.enabled
+        return userDetailCO
 
     }
 }
